@@ -6,21 +6,9 @@
   <node name="robot_state_publisher" pkg="robot_state_publisher"
     type="robot_state_publisher" />
 
-  <node pkg="imu_calib" type="apply_calib" name="imu_calib1">
-      <param name="calib_file" value="/home/joel/Desktop/catkin_ws_rtabmap/imu_calib.yaml"/>
-  </node>
+  <include file="imu_filter.launch" />
 
-  <!-- <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter1">
-      <param name="publish_tf" value="false"/> 
-      <param name="use_mag" value="false"/> 
-  </node> -->
-
-  <node pkg="imu_complementary_filter" type="complementary_filter_node" name="imu_filter1">
-      <param name="publish_tf" value="false"/> 
-      <param name="use_mag" value="false"/> 
-  </node>
-
- <node pkg="nodelet" type="nodelet" name="nodelet_manager" args="manager" />
+  <node pkg="nodelet" type="nodelet" name="nodelet_manager" args="manager" />
 
   <node pkg="nodelet" type="nodelet" name="depth_registerer"
         args="load depth_image_proc/register nodelet_manager">
@@ -98,7 +86,7 @@
   <arg name="right_camera_info_topic" default="$(arg stereo_namespace)/right/camera_info" />
   
   <!-- Already synchronized RGB-D related topic, with rtabmap_ros/rgbd_sync nodelet -->
-  <arg name="rgbd_sync"               default="false"/>         <!-- pre-sync rgb_topic, depth_topic, camera_info_topic -->
+  <arg name="rgbd_sync"               default="true"/>         <!-- pre-sync rgb_topic, depth_topic, camera_info_topic -->
   <arg name="approx_rgbd_sync"        default="true"/>          <!-- false=exact synchronization -->
   <arg name="subscribe_rgbd"          default="$(arg rgbd_sync)"/>
   <arg name="rgbd_topic"              default="rgbd_image" />
@@ -352,7 +340,11 @@
       <param name="queue_size"           type="int" value="$(arg queue_size)"/>
       <param name="scan_cloud_max_points"     type="int" value="$(arg scan_cloud_max_points)"/>
       <param name="landmark_linear_variance"   type="double" value="$(arg tag_linear_variance)"/>
-      <param name="landmark_angular_variance"  type="double" value="$(arg tag_angular_variance)"/>      
+      <param name="landmark_angular_variance"  type="double" value="$(arg tag_angular_variance)"/>   
+
+      <!-- test params -->
+      <param name="map_always_update"  type="bool" value="true"/>   
+ 
       
       <remap from="rgb/image"       to="$(arg rgb_topic_relay)"/>
       <remap from="depth/image"     to="$(arg depth_topic_relay)"/>
