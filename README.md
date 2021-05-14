@@ -16,3 +16,7 @@ rosrun imu_calib do_calib
 ```
 
 
+## Launch
+```
+roslaunch rtabmap_sailmav.launch
+```
