@@ -18,5 +18,8 @@ rosrun imu_calib do_calib
 
 ## Launch
 ```
+# start camera and imu pub on SailMAV https://github.com/jwpleow/SailMAV_ROS_RPI (use correct branch for IMU)
+# start rectifier and depth inference node https://github.com/jwpleow/stereo_libtorch_inference
+
 roslaunch rtabmap_sailmav.launch
 ```
