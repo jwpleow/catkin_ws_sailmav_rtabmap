@@ -97,7 +97,7 @@ void ApplyCalib::rawImuCallback(sensor_msgs::Imu::ConstPtr raw)
 
   calib_.applyCalib(raw->linear_acceleration.x, raw->linear_acceleration.y, raw->linear_acceleration.z,
                     &corrected.linear_acceleration.x, &corrected.linear_acceleration.y, &corrected.linear_acceleration.z);
-
+  corrected.header.frame_id = "imu_link";
   corrected.angular_velocity.x -= gyro_bias_x_;
   corrected.angular_velocity.y -= gyro_bias_y_;
   corrected.angular_velocity.z -= gyro_bias_z_;
